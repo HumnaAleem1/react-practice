@@ -1,8 +1,9 @@
-import axios from 'axios'
+import axios, { AxiosResponse } from 'axios'
 
 const get = async(apiUrl: string) => {
   try {
-    return await axios.get(apiUrl)
+    return axios.get<AxiosResponse>(apiUrl)
+    .then((response) => response.data)
   } catch (error) {
     console.error(error);
   }

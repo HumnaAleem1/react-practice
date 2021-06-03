@@ -3,8 +3,10 @@ import axiosInstance from '../../API'
 
 const Home = () => {
 
-    const getRedditData = () => axiosInstance.get(redditData)
-    .then(result => console.log(result))
+    const getRedditData = async() => {
+        const response = await axiosInstance.get(redditData)
+        console.log(response)
+    }
 
     return (
     <div>
