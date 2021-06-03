@@ -1,5 +1,6 @@
 import { redditData } from '../../API/contants'
 import API from '../../API'
+import { Table } from '../Table'
 
 export const Home = () => {
 
@@ -13,6 +14,7 @@ export const Home = () => {
     <div>
         <div>Test App</div>
         <button onClick={getRedditData}>Go</button>
+        <Table />
     </div>
     )
 }
