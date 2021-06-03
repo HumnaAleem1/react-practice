@@ -8,8 +8,7 @@ const Home = () => {
 
      const getRedditData = () => {
         API.get(redditData).then((result) => {
-            //@ts-ignore
-            setReddit(result.data!.data!.children)
+            setReddit(result?.data?.children)
         })
     }
 

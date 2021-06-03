@@ -20,14 +20,6 @@ const Table: React.FC<Props> = ({ data }) => {
         title: ''
     })
 
-    const showDetail = (authorName: string, title: string) => {
-        setState({
-            displayCard: true,
-            authorName,
-            title
-        })
-    }
-
     const { displayCard, authorName, title } = state
 
     return (
@@ -51,7 +43,9 @@ const Table: React.FC<Props> = ({ data }) => {
                                     <td>{author}</td>
                                     <td>{title}</td>
                                     <td>
-                                        <button onClick={() => showDetail(author, title)}>Detail</button>
+                                        <button onClick={() => setState({ displayCard: true, authorName, title })}>
+                                            Detail
+                                        </button>
                                     </td>
                                 </tr>
                             )
