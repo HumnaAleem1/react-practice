@@ -1,19 +1,11 @@
 import './Card.css'
 
-interface States {
-    displayCard: boolean
-    authorName: string
-    title: string
-}
-
 interface Props {
 	authorName: string
     title: string
-    state: States
-    setState: (value: States) => void
 }
 
-const Card: React.FC<Props> = ({authorName, title, state, setState}) => {
+const Card: React.FC<Props> = ({authorName, title}) => {
 
     return (
         <div className="card-container">
@@ -22,7 +14,7 @@ const Card: React.FC<Props> = ({authorName, title, state, setState}) => {
                 <div>{authorName}</div>
                 <div>Title</div><br/>
                 <div>{title}</div>
-                <button onClick={() => setState({...state, displayCard: false})}>Delete</button>
+                <button>Delete</button>
             </div>
         </div>
     )

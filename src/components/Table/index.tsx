@@ -44,7 +44,7 @@ const Table: React.FC<Props> = ({ data }) => {
                 <tbody>
                     {
                         data?.map((childData, index) => {
-                            const { author_fullname: author, title } = childData.data
+                            const { author, title } = childData.data
                             return (
                                 <tr key={index}>
                                     <td>{index}</td>
@@ -60,7 +60,7 @@ const Table: React.FC<Props> = ({ data }) => {
                 </tbody>
             </table>
             {
-                displayCard && <Card authorName={authorName} title={title} state={state} setState={setState}/>
+                displayCard && <Card authorName={authorName} title={title}/>
             }
         </>
     )
