@@ -1,12 +1,15 @@
 import { redditData } from '../../API/contants'
 import API from '../../API'
 import { Table } from '../Table'
+import { useState } from 'react'
 
-export const Home = () => {
+const Home = () => {
+    const [reddit, setReddit] = useState<RedditData['data']['children']>([])
 
-    const getRedditData = () => {
-        API.get(redditData).then(result => {
-            console.log(result)
+     const getRedditData = () => {
+        API.get(redditData).then((result) => {
+            //@ts-ignore
+            setReddit(result.data!.data!.children)
         })
     }
 
@@ -14,7 +17,11 @@ export const Home = () => {
     <div>
         <div>Test App</div>
         <button onClick={getRedditData}>Go</button>
-        <Table />
+        {
+            reddit && <Table data={reddit}/>
+        }
     </div>
     )
 }
+
+export default Home
