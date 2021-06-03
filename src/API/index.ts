@@ -1,12 +1,13 @@
+import axios from 'axios'
+
 const get = (apiUrl: string) => {
-  return fetch(apiUrl, {
-    method: 'GET',
-    headers: {
-      'content-type': 'application/json'
-    },
-  }).then(response => {
-    return response.json();
-  });
-};
+  return axios.get(apiUrl)
+    .then(function (response) {
+      return response;
+    })
+    .catch(function (error) {
+      console.log(error);
+    })
+}
 
 export default { get };
