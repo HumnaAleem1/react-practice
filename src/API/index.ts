@@ -2,12 +2,12 @@ import axios from 'axios'
 
 const get = (apiUrl: string) => {
   return axios.get(apiUrl)
-    .then(function (response) {
-      return response;
+    .then(response => {
+      return response
     })
-    .catch(function (error) {
-      console.log(error);
+    .catch(error => {
+      console.log(error)
     })
 }
 
-export default { get };
+export default { get }
