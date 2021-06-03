@@ -147,3 +147,7 @@ interface Source {
 interface AxiosInstance {
     request<T = any, R = AxiosResponse<T>> (config: AxiosRequestConfig): Promise<R>;
 }
+
+interface ServerResponse {
+    data: RedditData
+}

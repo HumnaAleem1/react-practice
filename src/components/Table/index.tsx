@@ -1,37 +1,69 @@
+import { useState } from 'react'
+import Card from '../Card/Card'
 import './Table.css'
 
 interface Props {
 	data: RedditData['data']['children']
 }
 
-export const Table: React.FC<Props> = ({ data }) => {
+interface States {
+    displayCard: boolean
+    authorName: string
+    title: string
+}
+
+const Table: React.FC<Props> = ({ data }) => {
+
+    const [state, setState] = useState<States>({
+        displayCard: false,
+        authorName: '',
+        title: ''
+    })
+
+    const showDetail = (authorName: string, title: string) => {
+        setState({
+            displayCard: true,
+            authorName,
+            title
+        })
+    }
+
+    const { displayCard, authorName, title } = state
+
     return (
-    <table>
-        <thead>
-            <tr>
-                <th>Sr #</th>
-                <th>Author</th>
-                <th>Title</th>
-                <th>Action</th>
-            </tr>
-        </thead>
-        <tbody>
+        <>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Sr #</th>
+                        <th>Author</th>
+                        <th>Title</th>
+                        <th>Action</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {
+                        data?.map((childData, index) => {
+                            const { author_fullname: author, title } = childData.data
+                            return (
+                                <tr key={index}>
+                                    <td>{index}</td>
+                                    <td>{author}</td>
+                                    <td>{title}</td>
+                                    <td>
+                                        <button onClick={() => showDetail(author, title)}>Detail</button>
+                                    </td>
+                                </tr>
+                            )
+                        })
+                    }
+                </tbody>
+            </table>
             {
-                data?.map((childData, index) => {
-                    const { author_fullname: author, title } = childData.data
-                    return (
-                        <tr key={index}>
-                            <td>{index}</td>
-                            <td>{author}</td>
-                            <td>{title}</td>
-                            <td>
-                                <button>Detail</button>
-                            </td>
-                        </tr>
-                    )
-                })
+                displayCard && <Card authorName={authorName} title={title} state={state} setState={setState}/>
             }
-        </tbody>
-    </table>
+        </>
     )
 }
+
+export default Table
