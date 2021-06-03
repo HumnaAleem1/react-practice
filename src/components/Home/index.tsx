@@ -1,23 +1,20 @@
-import { redditData } from '../../API/contants'
-import API from '../../API'
-import Table from '../Table'
 import { useState } from 'react'
+import { redditData } from '../../API/contants'
+import axiosInstance from '../../API'
+import Table from '../Table'
 
 const Home = () => {
-    const [reddit, setReddit] = useState<RedditData['data']['children']>()
+    const [data, setData] = useState<RedditData['data']['children']>()
 
-     const getRedditData = () => {
-        API.get(redditData).then((result) => {
-            setReddit(result?.data?.children)
-        })
-    }
+    const getRedditData = () =>
+    axiosInstance.get(redditData).then((result) => setData(result?.data?.children))
 
     return (
     <div>
         <div>Test App</div>
         <button onClick={getRedditData}>Go</button>
         {
-            reddit && <Table data={reddit}/>
+            data && <Table data={data}/>
         }
     </div>
     )

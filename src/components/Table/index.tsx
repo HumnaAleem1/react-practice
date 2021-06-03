@@ -36,10 +36,10 @@ const Table: React.FC<Props> = ({ data }) => {
                 <tbody>
                     {
                         data?.map((childData, index) => {
-                            const { author, title } = childData.data
+                            const { author, title } = childData?.data
                             return (
                                 <tr key={index}>
-                                    <td>{index}</td>
+                                    <td>{index + 1}</td>
                                     <td>{author}</td>
                                     <td>{title}</td>
                                     <td>
