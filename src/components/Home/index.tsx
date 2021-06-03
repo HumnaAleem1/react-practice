@@ -1,7 +1,7 @@
 import { redditData } from '../../API/contants'
 import API from '../../API'
 
-export const Home = () => {
+const Home = () => {
 
     const getRedditData = () => {
         API.get(redditData).then(result => {
@@ -16,3 +16,5 @@ export const Home = () => {
     </div>
     )
 }
+
+export default Home
