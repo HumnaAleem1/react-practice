@@ -1,13 +1,11 @@
 import axios from 'axios'
 
-const get = (apiUrl: string) => {
-  return axios.get(apiUrl)
-    .then(response => {
-      return response
-    })
-    .catch(error => {
-      console.log(error)
-    })
+const get = async(apiUrl: string) => {
+  try {
+    return await axios.get(apiUrl)
+  } catch (error) {
+    console.error(error);
+  }
 }
 
 export default { get }

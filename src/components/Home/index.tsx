@@ -1,13 +1,11 @@
 import { redditData } from '../../API/contants'
-import API from '../../API'
+import axiosInstance from '../../API'
 
 const Home = () => {
 
-    const getRedditData = () => {
-        API.get(redditData).then(result => {
-            console.log(result)
-        })
-    }
+    const getRedditData = () => axiosInstance.get(redditData).then(result => {
+        console.log(result)
+    })
 
     return (
     <div>
