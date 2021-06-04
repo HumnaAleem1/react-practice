@@ -1,7 +1,7 @@
 import { useState } from 'react'
-import { redditUrl } from '../../API/Constants'
-import { get } from '../../API/API'
-import { Table } from '../Table/Table'
+import { redditUrl } from '../../api/Constants'
+import { get } from '../../api/API'
+import { Table } from '../table/Table'
 import { AxiosResponse } from 'axios'
 import { IRedditData } from "../../RedditInterfaces"
 
