@@ -1,20 +1,20 @@
-interface RedditData {
+export interface IRedditData {
     kind: string,
-    data: ParentData
+    data: IParentData
 }
 
-interface ParentData {
+interface IParentData {
     modhash: string,
     dist: number,
-    children: Children[]
+    children: IChildren[]
 }
 
-interface Children {
+interface IChildren {
     kind: string,
-    data: ChildData
+    data: IChildData
 }
 
-interface ChildData {
+interface IChildData {
     approved_at_utc: string,
     subreddit: string,
     selftext: string,
@@ -85,7 +85,7 @@ interface ChildData {
     is_crosspostable: boolean,
     pinned: boolean,
     over_18: boolean,
-    preview: Preview
+    preview: IPreview
     all_awardings: string[],
     awarders: string[],
     media_only: boolean,
@@ -126,19 +126,19 @@ interface ChildData {
     is_video: boolean
 }
 
-interface Preview {
-    images: Images[],
+interface IPreview {
+    images: IImage[],
     enabled: boolean
 }
 
-interface Images {
-    source: Source,
-    resolutions: Source[]
+interface IImage {
+    source: ISource,
+    resolutions: ISource[]
     variants: Object,
     id: string
 }
 
-interface Source {
+interface ISource {
     url: string,
     width: number,
     height: number

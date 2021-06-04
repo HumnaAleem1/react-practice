@@ -3,20 +3,21 @@ import { redditUrl } from '../../API/Constants'
 import { get } from '../../API/API'
 import { Table } from '../Table/Table'
 import { AxiosResponse } from 'axios'
+import { IRedditData } from "../../RedditInterfaces"
 
 export const Home = () => {
-    const [data, setData] = useState<RedditData['data']['children']>()
+    const [authorData, setAuthorData] = useState<IRedditData['data']['children']>()
 
     const getRedditData = async() => {
         const response: AxiosResponse = await get(redditUrl)
-        setData(response?.data?.data?.children)
+        setAuthorData(response?.data?.data?.children)
     }
 
     return (
     <div>
         <div>Test App</div>
         <button onClick={getRedditData}>Go</button>
-        { data && <Table data={data}/> }
+        { authorData && <Table authorData={authorData}/> }
     </div>
     )
 }

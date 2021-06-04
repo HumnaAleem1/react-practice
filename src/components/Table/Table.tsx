@@ -1,20 +1,16 @@
 import { useState } from 'react'
-import Card from '../Card/Card'
+import { Card } from '../Card/Card'
+import { ITableStates } from "../TableInterfaces"
+import { IRedditData } from "../../RedditInterfaces"
 import './Table.css'
 
-interface Props {
-	data: RedditData['data']['children']
+interface ITableProps {
+	authorData: IRedditData['data']['children']
 }
 
-interface States {
-    displayCard: boolean
-    authorName: string
-    title: string
-}
+export const Table: React.FC<ITableProps> = ({ authorData }) => {
 
-export const Table: React.FC<Props> = ({ data }) => {
-
-    const [state, setState] = useState<States>({
+    const [state, setState] = useState<ITableStates>({
         displayCard: false,
         authorName: '',
         title: ''
@@ -35,7 +31,7 @@ export const Table: React.FC<Props> = ({ data }) => {
                 </thead>
                 <tbody>
                     {
-                        data?.map((childData, index) => {
+                        authorData?.map((childData, index) => {
                             const { author, title } = childData?.data
                             return (
                                 <tr key={index}>
@@ -53,7 +49,7 @@ export const Table: React.FC<Props> = ({ data }) => {
                     }
                 </tbody>
             </table>
-            { displayCard && <Card authorName={authorName} title={title}/> }
+            { displayCard && <Card {...state}/> }
         </>
     )
 }
