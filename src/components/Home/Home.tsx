@@ -1,5 +1,5 @@
 import { useState } from 'react'
-import { redditData } from '../../API/Constants'
+import { redditUrl } from '../../API/Constants'
 import { get } from '../../API/API'
 import { Table } from '../Table'
 import { AxiosResponse } from 'axios'
@@ -8,7 +8,7 @@ export const Home = () => {
     const [data, setData] = useState<RedditData['data']['children']>()
 
     const getRedditData = async() => {
-        const response: AxiosResponse = await get(redditData)
+        const response: AxiosResponse = await get(redditUrl)
         setData(response?.data?.data?.children)
     }
 
