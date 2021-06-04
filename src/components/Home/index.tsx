@@ -6,8 +6,10 @@ import Table from '../Table'
 const Home = () => {
     const [data, setData] = useState<RedditData['data']['children']>()
 
-    const getRedditData = () =>
-    axiosInstance.get(redditData).then((result) => setData(result?.data?.children))
+    const getRedditData = async() => {
+        const response = await axiosInstance.get(redditData)
+        setData(response?.data?.children)
+    }
 
     return (
     <div>
