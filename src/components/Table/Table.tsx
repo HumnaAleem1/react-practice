@@ -12,11 +12,25 @@ export const Table: React.FC<ITableProps> = ({ authorData }) => {
 
     const [state, setState] = useState<ITableStates>({
         displayCard: false,
-        authorName: '',
-        title: ''
+        cards: {}
     })
 
-    const { displayCard, authorName, title } = state
+    const { displayCard, cards } = state
+
+    const getAppendedComponents = () => {
+        for(let [cardId, card] of Object.entries(cards)) {
+            return <Card key={cardId} {...card}/>
+        }
+    }
+
+    const displayDetails = (authorName: string, title: string, cardNumber: number) => {
+        setState({
+            ...state,
+            displayCard: true,
+            cards: {...state.cards, [cardNumber]: { authorName, title}}
+            
+        })
+    }
 
     return (
         <>
@@ -39,7 +53,7 @@ export const Table: React.FC<ITableProps> = ({ authorData }) => {
                                     <td>{author}</td>
                                     <td>{title}</td>
                                     <td>
-                                        <button onClick={() => setState({ displayCard: true, authorName, title })}>
+                                        <button onClick={() => displayDetails(author, title, index)}>
                                             Detail
                                         </button>
                                     </td>
@@ -49,7 +63,7 @@ export const Table: React.FC<ITableProps> = ({ authorData }) => {
                     }
                 </tbody>
             </table>
-            { displayCard && <Card {...state}/> }
+            { displayCard && getAppendedComponents() }
         </>
     )
 }
