@@ -12,7 +12,7 @@ interface States {
     title: string
 }
 
-const Table: React.FC<Props> = ({ data }) => {
+export const Table: React.FC<Props> = ({ data }) => {
 
     const [state, setState] = useState<States>({
         displayCard: false,
@@ -53,11 +53,7 @@ const Table: React.FC<Props> = ({ data }) => {
                     }
                 </tbody>
             </table>
-            {
-                displayCard && <Card authorName={authorName} title={title}/>
-            }
+            { displayCard && <Card authorName={authorName} title={title}/> }
         </>
     )
 }
-
-export default Table

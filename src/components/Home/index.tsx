@@ -1,9 +1,9 @@
 import { useState } from 'react'
 import { redditData } from '../../API/contants'
 import axiosInstance from '../../API'
-import Table from '../Table'
+import { Table } from '../Table'
 
-const Home = () => {
+export const Home = () => {
     const [data, setData] = useState<RedditData['data']['children']>()
 
     const getRedditData = async() => {
@@ -15,11 +15,7 @@ const Home = () => {
     <div>
         <div>Test App</div>
         <button onClick={getRedditData}>Go</button>
-        {
-            data && <Table data={data}/>
-        }
+        { data && <Table data={data}/> }
     </div>
     )
 }
-
-export default Home
