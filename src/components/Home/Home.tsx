@@ -1,14 +1,15 @@
 import { useState } from 'react'
-import { redditData } from '../../API/contants'
-import axiosInstance from '../../API'
+import { redditData } from '../../API/Constants'
+import { get } from '../../API/API'
 import { Table } from '../Table'
+import { AxiosResponse } from 'axios'
 
 export const Home = () => {
     const [data, setData] = useState<RedditData['data']['children']>()
 
     const getRedditData = async() => {
-        const response = await axiosInstance.get(redditData)
-        setData(response?.data?.children)
+        const response: AxiosResponse = await get(redditData)
+        setData(response?.data?.data?.children)
     }
 
     return (
