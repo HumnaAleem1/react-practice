@@ -1,10 +1,10 @@
-import { redditData } from '../../API/contants'
-import axiosInstance from '../../API'
+import { redditData } from '../../API/Constants'
+import { get } from '../../API/API'
 
 export const Home = () => {
 
     const getRedditData = async() => {
-        const response = await axiosInstance.get(redditData)
+        const response = await get(redditData)
         console.log(response)
     }
 
