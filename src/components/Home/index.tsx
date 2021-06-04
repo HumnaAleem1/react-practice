@@ -1,7 +1,7 @@
 import { redditData } from '../../API/contants'
 import axiosInstance from '../../API'
 
-const Home = () => {
+export const Home = () => {
 
     const getRedditData = async() => {
         const response = await axiosInstance.get(redditData)
@@ -15,5 +15,3 @@ const Home = () => {
     </div>
     )
 }
-
-export default Home

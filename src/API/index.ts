@@ -1,12 +1,9 @@
 import axios, { AxiosResponse } from 'axios'
 
-const get = async(apiUrl: string) => {
-  try {
+const get = (apiUrl: string) => {
     return axios.get<AxiosResponse>(apiUrl)
-    .then((response) => response.data)
-  } catch (error) {
-    console.error(error);
-  }
+    .then(response => response.data)
+    .catch(error => console.error(error))
 }
 
 export default { get }
