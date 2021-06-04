@@ -1,7 +1,7 @@
 import { useState } from 'react'
 import { redditUrl } from '../../API/Constants'
 import { get } from '../../API/API'
-import { Table } from '../Table'
+import { Table } from '../Table/Table'
 import { AxiosResponse } from 'axios'
 
 export const Home = () => {
