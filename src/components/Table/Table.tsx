@@ -17,13 +17,15 @@ export const Table: React.FC<ITableProps> = ({ authorData }) => {
 
     const { displayCard, cards } = state
 
-    const getAppendedComponents = () => {
-        for(let [cardId, card] of Object.entries(cards)) {
-            return <Card key={cardId} {...card}/>
-        }
+    const getCards = () => {
+        return (
+            Object.entries(cards).map(([cardId, card]) => {
+                return <Card key={cardId} {...card}/>
+            })
+        )
     }
 
-    const displayDetails = (authorName: string, title: string, cardNumber: number) => {
+    const displayDetail = (authorName: string, title: string, cardNumber: number) => {
         setState({
             ...state,
             displayCard: true,
@@ -53,7 +55,7 @@ export const Table: React.FC<ITableProps> = ({ authorData }) => {
                                     <td>{author}</td>
                                     <td>{title}</td>
                                     <td>
-                                        <button onClick={() => displayDetails(author, title, index)}>
+                                        <button onClick={() => displayDetail(author, title, index)}>
                                             Detail
                                         </button>
                                     </td>
@@ -63,7 +65,7 @@ export const Table: React.FC<ITableProps> = ({ authorData }) => {
                     }
                 </tbody>
             </table>
-            { displayCard && getAppendedComponents() }
+            { displayCard && getCards() }
         </>
     )
 }
