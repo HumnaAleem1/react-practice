@@ -25,11 +25,11 @@ export const Table: React.FC<ITableProps> = ({ authorData }) => {
         )
     }
 
-    const displayDetail = (authorName: string, title: string, cardNumber: number) => {
+    const displayDetail = (authorName: string, title: string, cardId: string) => {
         setState({
             ...state,
             displayCard: true,
-            cards: {...state.cards, [cardNumber]: { authorName, title}}
+            cards: {...state.cards, [cardId]: { authorName, title}}
             
         })
     }
@@ -47,15 +47,15 @@ export const Table: React.FC<ITableProps> = ({ authorData }) => {
                 </thead>
                 <tbody>
                     {
-                        authorData?.map((childData, index) => {
-                            const { author, title } = childData?.data
+                        authorData?.map((childData) => {
+                            const { author, title, id } = childData?.data
                             return (
-                                <tr key={index}>
-                                    <td>{index + 1}</td>
+                                <tr key={id}>
+                                    <td>{id + 1}</td>
                                     <td>{author}</td>
                                     <td>{title}</td>
                                     <td>
-                                        <button onClick={() => displayDetail(author, title, index)}>
+                                        <button onClick={() => displayDetail(author, title, id)}>
                                             Detail
                                         </button>
                                     </td>
