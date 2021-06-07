@@ -15,13 +15,19 @@ export const Table: FC<ITableProps> = ({ authorData }) => {
     const getCards = () => {
         return (
             cards.map(card => {
-                return <Card key={card.cardId} card={card}/>
+                return <Card key={card.cardId} card={card} deleteCard={deleteCard} />
             })
         )
     }
 
     const displayDetail = (authorName: string, title: string, cardId: string) => 
         setCards([...cards, { authorName, title, cardId}])
+
+    const deleteCard = (cardId: string) => {
+        const filteredCards = cards.filter(card => card.cardId !== cardId)
+        setCards(filteredCards)
+    }
+        
 
     return (
         <>
