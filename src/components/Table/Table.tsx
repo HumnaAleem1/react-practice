@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useState, FC } from 'react'
 import { Card } from '../card/Card'
 import { ICard } from "../TableInterfaces"
 import { IRedditData } from "../../RedditInterfaces"
@@ -8,7 +8,7 @@ interface ITableProps {
     authorData: IRedditData['data']['children']
 }
 
-export const Table: React.FC<ITableProps> = ({ authorData }) => {
+export const Table: FC<ITableProps> = ({ authorData }) => {
 
     const [cards, setCards] = useState<ICard[]>([])
 
