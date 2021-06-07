@@ -25,14 +25,13 @@ export const Table: React.FC<ITableProps> = ({ authorData }) => {
         )
     }
 
-    const displayDetail = (authorName: string, title: string, cardId: string) => {
+    const displayDetail = (authorName: string, title: string, cardId: string) => 
         setState({
             ...state,
             displayCard: true,
             cards: {...state.cards, [cardId]: { authorName, title}}
             
         })
-    }
 
     return (
         <>
