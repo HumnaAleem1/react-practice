@@ -1,1 +1,0 @@
-export const redditData = 'https://www.reddit.com/r/technology/new.json'

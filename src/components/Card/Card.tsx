@@ -1,12 +1,13 @@
+import { FC } from 'react'
+import { ICard } from "../TableInterfaces"
 import './Card.css'
 
-interface Props {
-	authorName: string
-    title: string
+interface ICardProps {
+    card: ICard
 }
 
-const Card: React.FC<Props> = ({authorName, title}) => {
-
+export const Card: FC<ICardProps> = ({ card }) => {
+    const { authorName, title, cardId } = card
     return (
         <div className="card-container">
             <div className="card">
@@ -19,5 +20,3 @@ const Card: React.FC<Props> = ({authorName, title}) => {
         </div>
     )
 }
-
-export default Card
