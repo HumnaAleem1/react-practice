@@ -1,6 +1,6 @@
 import { useState } from 'react'
 import { Card } from '../card/Card'
-import { ITableStates } from "../TableInterfaces"
+import { ICard } from "../TableInterfaces"
 import { IRedditData } from "../../RedditInterfaces"
 import './Table.css'
 
@@ -10,27 +10,18 @@ interface ITableProps {
 
 export const Table: React.FC<ITableProps> = ({ authorData }) => {
 
-    const [state, setState] = useState<ITableStates>({
-        displayCard: false,
-        cards: []
-    })
-
-    const { displayCard, cards } = state
+    const [cards, setCards] = useState<ICard[]>([])
 
     const getCards = () => {
         return (
             cards.map(card => {
-                return <Card key={card.cardId} {...card}/>
+                return <Card key={card.cardId} card={card}/>
             })
         )
     }
 
     const displayDetail = (authorName: string, title: string, cardId: string) => 
-        setState({
-            ...state,
-            displayCard: true,
-            cards: [...state.cards, { authorName, title, cardId}]
-        })
+        setCards([...cards, { authorName, title, cardId}])
 
     return (
         <>
@@ -63,7 +54,7 @@ export const Table: React.FC<ITableProps> = ({ authorData }) => {
                     }
                 </tbody>
             </table>
-            { displayCard && getCards() }
+            { cards && getCards() }
         </>
     )
 }
