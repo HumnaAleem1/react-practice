@@ -1,11 +1,11 @@
-import { ITableStates } from "../TableInterfaces"
+import { ICard } from "../TableInterfaces"
 import './Card.css'
 
 interface ICardProps {
 }
 
 export const Card: React.FC<ICardProps> = ({ ...tableStates }) => {
-    const { authorName, title } = tableStates as ITableStates['cards']
+    const { authorName, title, cardId } = tableStates as ICard
     return (
         <div className="card-container">
             <div className="card">

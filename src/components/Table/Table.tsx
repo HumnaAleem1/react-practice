@@ -5,14 +5,14 @@ import { IRedditData } from "../../RedditInterfaces"
 import './Table.css'
 
 interface ITableProps {
-	authorData: IRedditData['data']['children']
+    authorData: IRedditData['data']['children']
 }
 
 export const Table: React.FC<ITableProps> = ({ authorData }) => {
 
     const [state, setState] = useState<ITableStates>({
         displayCard: false,
-        cards: {}
+        cards: []
     })
 
     const { displayCard, cards } = state
@@ -29,8 +29,7 @@ export const Table: React.FC<ITableProps> = ({ authorData }) => {
         setState({
             ...state,
             displayCard: true,
-            cards: {...state.cards, [cardId]: { authorName, title}}
-            
+            cards: [...state.cards, { authorName, title, cardId}]
         })
 
     return (
