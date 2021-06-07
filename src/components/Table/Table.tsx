@@ -19,8 +19,8 @@ export const Table: React.FC<ITableProps> = ({ authorData }) => {
 
     const getCards = () => {
         return (
-            Object.entries(cards).map(([cardId, card]) => {
-                return <Card key={cardId} {...card}/>
+            cards.map(card => {
+                return <Card key={card.cardId} {...card}/>
             })
         )
     }
