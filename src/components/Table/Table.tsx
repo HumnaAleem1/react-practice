@@ -27,7 +27,6 @@ export const Table: FC<ITableProps> = ({ authorData }) => {
         const filteredCards = cards.filter(card => card.cardId !== cardId)
         setCards(filteredCards)
     }
-        
 
     return (
         <>
