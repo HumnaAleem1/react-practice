@@ -5,13 +5,14 @@ import { TimeSelectorCard } from '../card/TimeSelectorCard'
 
 export const TimeSelector = () => {
 
-    const [cards, setCards] = useState<IDayCard>({})
+    const [cards, setCards] = useState<IDayCard[]>([])
     const [checkboxes, setCheckboxes] = useState<ICheckbox[]>(checkboxArray)
 
     const getCards = () => {
-        return ( //use card as an object... to delete card at O(1). we cannot use index to get desired value from array.
-            Object.values(cards).map(card => {
-                return <TimeSelectorCard key={card.name} name={card.name}/>
+        return ( 
+            cards?.map(card => {
+                const { name } = card
+                return <TimeSelectorCard key={name} name={name}/>
             })
         )
     }
@@ -21,11 +22,16 @@ export const TimeSelector = () => {
         setCheckboxes(checkboxes)
     
         if(checkboxValue) {
-            setCards({...cards, [dayName]: {name: dayName}})
+            setCards([...cards, {name: dayName}])
         } else {
-            const tempCards = {...cards}
-            delete tempCards[dayName]
-            setCards(tempCards)
+            for(let index in cards) {
+                console.log('iterations')
+                if(cards[index].name === dayName) {
+                    cards.splice(parseInt(index), 1)
+                    break
+                }
+            }
+            setCards([...cards])
         }
     }
 

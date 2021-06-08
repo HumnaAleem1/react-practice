@@ -4,9 +4,5 @@ export interface ICheckbox {
 }
 
 export interface IDayCard {
-    [day: string]: ICard
-}
-
-interface ICard {
     name: string
 }
