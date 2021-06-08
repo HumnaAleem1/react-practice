@@ -14,11 +14,11 @@ export const TimeSelectorCard: FC<ICardProps> = ({ name }) => {
     const [timestamp, setTimestamp] = useState<ITimestamp[]>([])
 
     const getTimestamps = () => {
-        return ( 
+        return (
             timestamp?.map((time, index) => {
                 const { startTime, endTime } = time
                 return <div key={`${index}-${name}`}>
-                    <span>{moment(startTime, "h:mm").format('LT')}</span> - <span>{moment(endTime, "h:mm").format('LT')}</span> 
+                    <span>{moment(startTime, "h:mm").format('LT')}</span> - <span>{moment(endTime, "h:mm").format('LT')}</span>
                     <span onClick={() => deleteTimeSlot(index)}>Delete</span>
                 </div>
             })
