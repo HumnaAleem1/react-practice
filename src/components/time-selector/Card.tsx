@@ -10,8 +10,14 @@ export const Card: FC<ICardProps> = ({ name }) => {
         <div className="card-container">
             <div className="card">
                {name}
-               <input type='time' />
-
+               <div>
+                   Start Time
+                    <input type='time'/>
+                </div>
+                <div>
+                    End Time
+                    <input type='time' />
+                </div>
             </div>
         </div>
     )
