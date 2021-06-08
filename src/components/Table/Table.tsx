@@ -24,8 +24,14 @@ export const Table: FC<ITableProps> = ({ authorData }) => {
         setCards([...cards, { authorName, title, cardId}])
 
     const deleteCard = (cardId: string) => {
-        const filteredCards = cards.filter(card => card.cardId !== cardId)
-        setCards(filteredCards)
+        const tempCards = [...cards]
+        for(const index in tempCards) {
+            if(cards[index].cardId === cardId) {
+                tempCards.splice(parseInt(index), 1)
+                break 
+            }
+        }
+        setCards(tempCards)
     }
 
     return (
