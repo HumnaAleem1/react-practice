@@ -4,11 +4,12 @@ import './Card.css'
 
 interface ICardProps {
     card: ICard
-    deleteCard: (cardId: string) => void
+    index: number
+    deleteCard: (index: number) => void
 }
 
-export const Card: FC<ICardProps> = ({ card, deleteCard }) => {
-    const { authorName, title, cardId } = card
+export const Card: FC<ICardProps> = ({ card, index, deleteCard }) => {
+    const { authorName, title } = card
     return (
         <div className="card-container">
             <div className="card">
@@ -16,7 +17,7 @@ export const Card: FC<ICardProps> = ({ card, deleteCard }) => {
                 <div>{authorName}</div>
                 <div>Title</div><br/>
                 <div>{title}</div>
-                <button onClick={() => deleteCard(cardId)}>Delete</button>
+                <button onClick={() => deleteCard(index)}>Delete</button>
             </div>
         </div>
     )

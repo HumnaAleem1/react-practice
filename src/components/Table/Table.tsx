@@ -1,6 +1,6 @@
 import { useState, FC } from 'react'
 import { Card } from '../card/Card'
-import { ICards } from "../TableInterfaces"
+import { ICard } from "../TableInterfaces"
 import { IRedditData } from "../../RedditInterfaces"
 import './Table.css'
 
@@ -10,22 +10,22 @@ interface ITableProps {
 
 export const Table: FC<ITableProps> = ({ authorData }) => {
 
-    const [cards, setCards] = useState<ICards>()
+    const [cards, setCards] = useState<ICard[]>([])
 
     const getCards = () => {
         return (
-            Object.values(cards ?? {}).map(card => {
-                return <Card key={card.cardId} card={card} deleteCard={deleteCard} />
+            cards?.map((card, index) => {
+                return <Card key={index} index={index} card={card} deleteCard={deleteCard} />
             })
         )
     }
 
-    const displayDetail = (authorName: string, title: string, cardId: string) => 
-        setCards({...cards, [cardId]: { authorName, title, cardId}})
+    const displayDetail = (authorName: string, title: string) => 
+        setCards([...cards, { authorName, title}])
 
-    const deleteCard = (cardId: string) => {
-        const tempCards = {...cards}
-        delete tempCards?.[cardId]
+    const deleteCard = (index: number) => {
+        const tempCards = [...cards]
+        tempCards?.splice(index, 1)
         setCards(tempCards)
     }
 
@@ -42,15 +42,15 @@ export const Table: FC<ITableProps> = ({ authorData }) => {
                 </thead>
                 <tbody>
                     {
-                        authorData?.map((childData) => {
-                            const { author, title, id } = childData?.data
+                        authorData?.map((childData, index) => {
+                            const { author, title } = childData?.data
                             return (
-                                <tr key={id}>
-                                    <td>{id + 1}</td>
+                                <tr key={index}>
+                                    <td>{index + 1}</td>
                                     <td>{author}</td>
                                     <td>{title}</td>
                                     <td>
-                                        <button onClick={() => displayDetail(author, title, id)}>
+                                        <button onClick={() => displayDetail(author, title)}>
                                             Detail
                                         </button>
                                     </td>
