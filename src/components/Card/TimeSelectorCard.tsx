@@ -1,11 +1,11 @@
 import { FC } from 'react'
-import '../card/Card.css'
+import './Card.css'
 
 interface ICardProps {
     name: string
 }
 
-export const Card: FC<ICardProps> = ({ name }) => {
+export const TimeSelectorCard: FC<ICardProps> = ({ name }) => {
     return (
         <div className="card-container">
             <div className="card">

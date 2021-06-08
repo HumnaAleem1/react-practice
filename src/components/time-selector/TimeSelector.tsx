@@ -1,23 +1,23 @@
 import { useState } from 'react'
-import { checkboxObj } from './Checkboxes'
-import { ICheckBoxes, IDayCard } from './TimeSelectorInterfaces'
-import { Card } from './Card'
+import { checkboxArray } from './Checkboxes'
+import { ICheckbox, IDayCard } from './TimeSelectorInterfaces'
+import { TimeSelectorCard } from '../card/TimeSelectorCard'
 
 export const TimeSelector = () => {
 
     const [cards, setCards] = useState<IDayCard>({})
-    const [checkboxes, setCheckboxes] = useState<ICheckBoxes>(checkboxObj)
+    const [checkboxes, setCheckboxes] = useState<ICheckbox[]>(checkboxArray)
 
     const getCards = () => {
-        return (
+        return ( //use card as an object... to delete card at O(1). we cannot use index to get desired value from array.
             Object.values(cards).map(card => {
-                return <Card key={card.name} name={card.name}/>
+                return <TimeSelectorCard key={card.name} name={card.name}/>
             })
         )
     }
 
-    const markCheckbox = (checkboxValue: boolean, dayName: string) => {
-        checkboxes[dayName].checked = checkboxValue
+    const markCheckbox = (checkboxValue: boolean, dayName: string, index: number) => {
+        checkboxes[index].checked = checkboxValue
         setCheckboxes(checkboxes)
     
         if(checkboxValue) {
@@ -31,10 +31,10 @@ export const TimeSelector = () => {
 
     return  <>
         {
-            Object.values(checkboxes).map((checkbox) => {
-                const { checked, label} = checkbox
-                return  <div key={label}>
-                    <input type='checkbox' checked={checked} onChange={(e) => markCheckbox(e.target.checked, label)}/>
+            checkboxes.map((checkbox, index) => {
+                const { checked, label } = checkbox
+                return  <div key={ label }>
+                    <input type='checkbox' checked={checked} onChange={(e) => markCheckbox(e.target.checked, label, index)}/>
                     <label>{label}</label>
                 </div>
            })

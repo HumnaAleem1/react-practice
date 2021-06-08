@@ -1,8 +1,4 @@
-export interface ICheckBoxes {
-    [day: string]: ICheckBox
-}
-
-export interface ICheckBox {
+export interface ICheckbox {
     label: string
     checked: boolean
 }
