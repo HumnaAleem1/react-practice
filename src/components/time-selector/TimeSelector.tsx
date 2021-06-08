@@ -9,7 +9,7 @@ export const TimeSelector = () => {
     const [checkboxes, setCheckboxes] = useState<ICheckbox[]>(checkboxArray)
 
     const getCards = () => {
-        return ( 
+        return (
             cards?.map((card, index) => {
             return card && <TimeSelectorCard key={`${index}-${card}`} name={card}/>
             })
@@ -19,7 +19,7 @@ export const TimeSelector = () => {
     const markCheckbox = (checkboxValue: boolean, name: string, index: number) => {
         checkboxes[index].checked = checkboxValue
         setCheckboxes(checkboxes)
-    
+
         if(checkboxValue) {
             cards[index] = name
         } else {
