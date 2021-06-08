@@ -24,9 +24,8 @@ export const Table: FC<ITableProps> = ({ authorData }) => {
         setCards([...cards, { authorName, title}])
 
     const deleteCard = (index: number) => {
-        const tempCards = [...cards]
-        tempCards?.splice(index, 1)
-        setCards(tempCards)
+        cards?.splice(index, 1)
+        setCards([...cards])
     }
 
     return (
