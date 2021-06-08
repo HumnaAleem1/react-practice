@@ -1,5 +1,6 @@
+import { ICheckBoxes } from "./TimeSelectorInterfaces";
 
-export const checkboxes = {
+export const checkboxObj: ICheckBoxes = {
     'Monday': {
         label: 'Monday',
         checked: false
