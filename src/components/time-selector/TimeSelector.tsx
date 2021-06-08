@@ -37,7 +37,7 @@ export const TimeSelector = () => {
 
     return  <>
         {
-            checkboxes.map((checkbox, index) => {
+            checkboxes?.map((checkbox, index) => {
                 const { checked, label } = checkbox
                 return  <div key={ label }>
                     <input type='checkbox' checked={checked} onChange={(e) => markCheckbox(e.target.checked, label, index)}/>
