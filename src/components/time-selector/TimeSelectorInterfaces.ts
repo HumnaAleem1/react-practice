@@ -6,3 +6,8 @@ export interface ICheckbox {
 export interface IDayCard {
     name: string
 }
+
+export interface ITimestamp {
+    startTime: string
+    endTime: string
+}
