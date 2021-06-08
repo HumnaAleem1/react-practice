@@ -25,7 +25,6 @@ export const TimeSelector = () => {
             setCards([...cards, {name: dayName}])
         } else {
             for(let index in cards) {
-                console.log('iterations')
                 if(cards[index].name === dayName) {
                     cards.splice(parseInt(index), 1)
                     break
