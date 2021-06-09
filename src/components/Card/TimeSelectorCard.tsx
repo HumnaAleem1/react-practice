@@ -17,7 +17,7 @@ export const TimeSelectorCard: FC<ICardProps> = ({ name }) => {
         return ( 
             timestamp?.map((time, index) => {
                 const { startTime, endTime } = time
-                return <div key={index}>
+                return <div key={`${index}${startTime}${endTime}`}>
                     <span>{timeTo12HrFormat(startTime)}</span> - <span>{timeTo12HrFormat(endTime)}</span> 
                     <span onClick={() => deleteTimestamp(index)}>Delete</span>
                 </div>
