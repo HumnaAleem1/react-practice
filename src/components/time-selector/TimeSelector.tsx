@@ -18,15 +18,15 @@ export const TimeSelector = () => {
         )
     }
 
-    const markCheckbox = (checkboxValue: boolean, dayName: string, index: number, order: number) => {
+    const markCheckbox = (checkboxValue: boolean, name: string, index: number, order: number) => {
         checkboxes[index].checked = checkboxValue
         setCheckboxes(checkboxes)
     
         if(checkboxValue) {
-            setCards([...cards, {name: dayName, order: order}])
+            setCards([...cards, {name, order}])
         } else {
             for(let index in cards) {
-                if(cards[index].name === dayName) {
+                if(cards[index].order === order) {
                     cards.splice(parseInt(index), 1)
                     break
                 }
