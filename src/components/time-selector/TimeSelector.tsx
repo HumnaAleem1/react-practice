@@ -1,34 +1,31 @@
 import { useState } from 'react'
 import { checkboxArray } from './Checkboxes'
-import { ICheckbox, IDayCard } from './TimeSelectorInterfaces'
+import { ICheckbox } from './TimeSelectorInterfaces'
 import { TimeSelectorCard } from '../card/TimeSelectorCard'
 
 export const TimeSelector = () => {
 
-    const [cards, setCards] = useState<IDayCard[]>([])
+    const [cards, setCards] = useState<string[]>([])
     const [checkboxes, setCheckboxes] = useState<ICheckbox[]>(checkboxArray)
 
     const getCards = () => {
         return ( 
-            cards?.sort((a, b) => a.order - b.order).map(card => {
-                return <TimeSelectorCard key={card.order} {...card}/>
+            cards?.map(name => {
+            return name && <TimeSelectorCard key={name} name={name}/>
             })
         )
     }
 
-    const markCheckbox = (checkboxValue: boolean, name: string, index: number, order: number) => {
+    const markCheckbox = (checkboxValue: boolean, name: string, index: number) => {
         checkboxes[index].checked = checkboxValue
         setCheckboxes(checkboxes)
     
         if(checkboxValue) {
-            setCards([...cards, {name, order}])
+            const backup = [...cards]
+            backup[index] = name
+            setCards(backup)
         } else {
-            for(let index in cards) {
-                if(cards[index].order === order) {
-                    cards.splice(parseInt(index), 1)
-                    break
-                }
-            }
+            cards[index] = ''
             setCards([...cards])
         }
     }
@@ -36,9 +33,9 @@ export const TimeSelector = () => {
     return  <>
         {
             checkboxes?.map((checkbox, index) => {
-                const { checked, label, order } = checkbox
+                const { checked, label } = checkbox
                 return  <div key={ label }>
-                    <input type='checkbox' checked={checked} onChange={(e) => markCheckbox(e.target.checked, label, index, order)}/>
+                    <input type='checkbox' checked={checked} onChange={(e) => markCheckbox(e.target.checked, label, index)}/>
                     <label>{label}</label>
                 </div>
            })

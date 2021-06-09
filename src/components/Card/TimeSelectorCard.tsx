@@ -1,6 +1,6 @@
 import { FC, useState } from 'react'
 import { ITimestamp } from '../time-selector/TimeSelectorInterfaces'
-import { timeTo12HrFormat } from '../../utils/TimeSelectorUtil'
+import moment from 'moment'
 import './Card.css'
 
 interface ICardProps {
@@ -18,7 +18,7 @@ export const TimeSelectorCard: FC<ICardProps> = ({ name }) => {
             timestamp?.map((time, index) => {
                 const { startTime, endTime } = time
                 return <div key={`${index}${startTime}${endTime}`}>
-                    <span>{timeTo12HrFormat(startTime)}</span> - <span>{timeTo12HrFormat(endTime)}</span> 
+                    <span>{moment(startTime, "h:mm").format('LT')}</span> - <span>{moment(endTime, "h:mm").format('LT')}</span> 
                     <span onClick={() => deleteTimestamp(index)}>Delete</span>
                 </div>
             })
