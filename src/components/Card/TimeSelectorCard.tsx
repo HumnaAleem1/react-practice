@@ -1,5 +1,6 @@
 import { FC, useState } from 'react'
 import { ITimestamp } from '../time-selector/TimeSelectorInterfaces'
+import { timeTo12HrFormat } from '../../utils/TimeSelectorUtil'
 import './Card.css'
 
 interface ICardProps {
@@ -28,25 +29,6 @@ export const TimeSelectorCard: FC<ICardProps> = ({ name }) => {
         timestamp.splice(index, 1)
         setTimestamp([...timestamp])
     }
-
-    const timeTo12HrFormat = (time: string) => { 
-        const time_array = time.split(":");
-        let meridiem = 'AM';
-
-        if (parseInt(time_array[0]) >= 12) {
-            meridiem = 'PM';
-        }
-
-        if (parseInt(time_array[0]) > 12) {
-            //@ts-ignore
-            time_array[0] = parseInt(time_array[0]) - 12;
-        }
-
-        const formatted_time = time_array[0] + ':' + time_array[1] + ' ' + meridiem;
-
-        return formatted_time;
-    }
-
 
     return (
         <div className="card-container">
