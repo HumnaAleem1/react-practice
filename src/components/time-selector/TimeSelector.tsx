@@ -10,19 +10,20 @@ export const TimeSelector = () => {
 
     const getCards = () => {
         return ( 
-            cards?.map(card => {
-                const { name } = card
-                return <TimeSelectorCard key={name} name={name}/>
+            cards?.
+            sort((a, b) => a.order - b.order).
+            map(card => {
+                return <TimeSelectorCard key={card.order} {...card}/>
             })
         )
     }
 
-    const markCheckbox = (checkboxValue: boolean, dayName: string, index: number) => {
+    const markCheckbox = (checkboxValue: boolean, dayName: string, index: number, order: number) => {
         checkboxes[index].checked = checkboxValue
         setCheckboxes(checkboxes)
     
         if(checkboxValue) {
-            setCards([...cards, {name: dayName}])
+            setCards([...cards, {name: dayName, order: order}])
         } else {
             for(let index in cards) {
                 if(cards[index].name === dayName) {
@@ -37,9 +38,9 @@ export const TimeSelector = () => {
     return  <>
         {
             checkboxes?.map((checkbox, index) => {
-                const { checked, label } = checkbox
+                const { checked, label, order } = checkbox
                 return  <div key={ label }>
-                    <input type='checkbox' checked={checked} onChange={(e) => markCheckbox(e.target.checked, label, index)}/>
+                    <input type='checkbox' checked={checked} onChange={(e) => markCheckbox(e.target.checked, label, index, order)}/>
                     <label>{label}</label>
                 </div>
            })
