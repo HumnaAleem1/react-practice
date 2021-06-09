@@ -21,9 +21,8 @@ export const TimeSelector = () => {
         setCheckboxes(checkboxes)
     
         if(checkboxValue) {
-            const backup = [...cards]
-            backup[index] = name
-            setCards(backup)
+            cards[index] = name
+            setCards([...cards])
         } else {
             cards[index] = ''
             setCards([...cards])
