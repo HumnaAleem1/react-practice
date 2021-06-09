@@ -14,14 +14,19 @@ export const Table: FC<ITableProps> = ({ authorData }) => {
 
     const getCards = () => {
         return (
-            cards.map(card => {
-                return <Card key={card.cardId} card={card}/>
+            cards?.map((card, index) => {
+                return <Card key={index} index={index} card={card} deleteCard={deleteCard} />
             })
         )
     }
 
-    const displayDetail = (authorName: string, title: string, cardId: string) => 
-        setCards([...cards, { authorName, title, cardId}])
+    const displayDetail = (authorName: string, title: string) => 
+        setCards([...cards, { authorName, title}])
+
+    const deleteCard = (index: number) => {
+        cards?.splice(index, 1)
+        setCards([...cards])
+    }
 
     return (
         <>
@@ -36,15 +41,15 @@ export const Table: FC<ITableProps> = ({ authorData }) => {
                 </thead>
                 <tbody>
                     {
-                        authorData?.map((childData) => {
-                            const { author, title, id } = childData?.data
+                        authorData?.map((childData, index) => {
+                            const { author, title } = childData?.data
                             return (
-                                <tr key={id}>
-                                    <td>{id + 1}</td>
+                                <tr key={index}>
+                                    <td>{index + 1}</td>
                                     <td>{author}</td>
                                     <td>{title}</td>
                                     <td>
-                                        <button onClick={() => displayDetail(author, title, id)}>
+                                        <button onClick={() => displayDetail(author, title)}>
                                             Detail
                                         </button>
                                     </td>
