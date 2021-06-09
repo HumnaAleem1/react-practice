@@ -10,9 +10,7 @@ export const TimeSelector = () => {
 
     const getCards = () => {
         return ( 
-            cards?.
-            sort((a, b) => a.order - b.order).
-            map(card => {
+            cards?.sort((a, b) => a.order - b.order).map(card => {
                 return <TimeSelectorCard key={card.order} {...card}/>
             })
         )
