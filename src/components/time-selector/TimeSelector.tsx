@@ -10,8 +10,8 @@ export const TimeSelector = () => {
 
     const getCards = () => {
         return ( 
-            cards?.map(name => {
-            return name && <TimeSelectorCard key={name} name={name}/>
+            cards?.map((card, index) => {
+            return card && <TimeSelectorCard key={`${index}-${card}`} name={card}/>
             })
         )
     }
