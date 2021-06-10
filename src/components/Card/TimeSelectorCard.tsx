@@ -1,5 +1,5 @@
 import { FC, useState } from 'react'
-import { ITimestamp } from '../time-selector/TimeSelectorInterfaces'
+import { ICustomTimestamp, ITimestamp } from '../time-selector/TimeSelectorInterfaces'
 import { customTimestamp } from '../time-selector/Timestamp'
 import moment from 'moment'
 import './Card.css'
@@ -13,6 +13,9 @@ export const TimeSelectorCard: FC<ICardProps> = ({ name }) => {
     const [startTime, setStartTime] = useState<string>('')
     const [endTime, setEndTime] = useState<string>('')
     const [timestamp, setTimestamp] = useState<ITimestamp[]>([])
+    const [startTimestamp, setStartTimestamp] = useState<ICustomTimestamp>(customTimestamp)
+    const [endTimestamp, setEndTimestamp] = useState<ICustomTimestamp>(customTimestamp)
+
 
     const getTimestamps = () => {
         return (
@@ -31,19 +34,44 @@ export const TimeSelectorCard: FC<ICardProps> = ({ name }) => {
         setTimestamp([...timestamp])
     }
 
+    const addTime = () => {
+        setTimestamp([...timestamp, {startTime, endTime}])
+        debugger
+        delete startTimestamp[startTime]
+        delete endTimestamp[endTime]
+        // const test = {...startTimestamp}
+        // delete test[startTime]
+        // const test2 = {...endTimestamp}
+        // delete test2[endTime]
+        setStartTimestamp(startTimestamp)
+        setEndTimestamp(endTimestamp)
+    }
+
     return (
         <div className="card-container">
             <div className="card">
                <div>{name}</div>
                <div>
-                   Start Time
-                    <input type='time' onChange={(e) => setStartTime(e.target.value)}/>
+                    Start Time
+                    <select onChange={(e) => setStartTime(e.target.value)}>
+                        {
+                            Object.keys(startTimestamp ?? {}).map(timestampId => {
+                                return <option key={timestampId} value={timestampId}>{timestampId}</option>
+                            })
+                        }
+                    </select>
                 </div>
                 <div>
                     End Time
-                    <input type='time' onChange={(e) => setEndTime(e.target.value)}/>
+                    <select onChange={(e) => setEndTime(e.target.value)}>
+                    {
+                        Object.keys(endTimestamp ?? {}).map(timestampId => {
+                            return <option key={timestampId} value={timestampId}>{timestampId}</option>
+                        })
+                    }
+                    </select>
                 </div>
-                <button onClick={() => setTimestamp([...timestamp, {startTime, endTime}])}>Add Time</button>
+                <button onClick={addTime}>Add Time</button>
                 { timestamp && getTimestamps() }
             </div>
         </div>

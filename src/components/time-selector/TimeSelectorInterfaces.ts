@@ -12,7 +12,7 @@ export interface ICustomTimestamp {
     [time: string]: ICustomTime
 }
 
-interface ICustomTime {
-    time: string
+export interface ICustomTime {
+    time: number
     meridiem: 'AM' | 'PM'
 }
