@@ -19,13 +19,13 @@ export const TimeSelectorCard: FC<ICardProps> = ({ name }) => {
                 const { startTime, endTime } = time
                 return <div key={`${index}${startTime}${endTime}`}>
                     <span>{moment(startTime, "h:mm").format('LT')}</span> - <span>{moment(endTime, "h:mm").format('LT')}</span> 
-                    <span onClick={() => deleteTimestamp(index)}>Delete</span>
+                    <span onClick={() => deleteTimeSlot(index)}>Delete</span>
                 </div>
             })
         )
     }
 
-    const deleteTimestamp = (index: number) => {
+    const deleteTimeSlot = (index: number) => {
         timestamp.splice(index, 1)
         setTimestamp([...timestamp])
     }
