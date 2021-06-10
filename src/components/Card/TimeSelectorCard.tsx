@@ -1,5 +1,5 @@
 import { FC, useState } from 'react'
-import { ICustomTimestamp, ITimestamp } from '../time-selector/TimeSelectorInterfaces'
+import { ITimestamp, ICustomTime } from '../time-selector/TimeSelectorInterfaces'
 import { customTimestamp } from '../time-selector/Timestamp'
 import moment from 'moment'
 import './Card.css'
@@ -13,8 +13,8 @@ export const TimeSelectorCard: FC<ICardProps> = ({ name }) => {
     const [startTime, setStartTime] = useState<string>('')
     const [endTime, setEndTime] = useState<string>('')
     const [timestamp, setTimestamp] = useState<ITimestamp[]>([])
-    const [startTimestamp, setStartTimestamp] = useState<ICustomTimestamp>(customTimestamp)
-    const [endTimestamp, setEndTimestamp] = useState<ICustomTimestamp>(customTimestamp)
+    const [startTimestamp, setStartTimestamp] = useState<string[]>(customTimestamp)
+    const [endTimestamp, setEndTimestamp] = useState<string[]>(customTimestamp)
 
 
     const getTimestamps = () => {
@@ -30,21 +30,37 @@ export const TimeSelectorCard: FC<ICardProps> = ({ name }) => {
     }
 
     const deleteTimeSlot = (index: number) => {
+        const startTime = timestamp[index].startTime
+        const endTime = timestamp[index].endTime
+        startTimestamp[index] = startTime
+        setStartTimestamp([...startTimestamp])
+        //@ts-ignore
+        // setStartTimestamp({...startTimestamp, [startTime]: {
+        //         time: parseInt(startTime.split(' ')[0].substring(0,2)),
+        //         meridiem: startTime.split(' ')[1],
+        //     }
+        // })
+        //@ts-ignore
+        // setEndTimestamp({...endTimestamp, [endTime]: {
+        //     time: parseInt(endTime.split(' ')[0].substring(0,2)),
+        //     meridiem: endTime.split(' ')[1],
+        //     }
+        // })
         timestamp.splice(index, 1)
         setTimestamp([...timestamp])
     }
 
     const addTime = () => {
-        setTimestamp([...timestamp, {startTime, endTime}])
-        debugger
-        delete startTimestamp[startTime]
-        delete endTimestamp[endTime]
-        // const test = {...startTimestamp}
-        // delete test[startTime]
-        // const test2 = {...endTimestamp}
-        // delete test2[endTime]
-        setStartTimestamp(startTimestamp)
-        setEndTimestamp(endTimestamp)
+        const startTimeArr = startTime.split('-')[0]
+        const endTimeArr = endTime.split('-')[0]
+        const startIndex = parseInt(startTime.split('-')[1])
+        const endIndex = parseInt(endTime.split('-')[1])
+        setTimestamp([...timestamp, timestamp[startIndex] = {startTime: startTimeArr, endTime: endTimeArr}])
+        startTimestamp[startIndex] = ''
+        endTimestamp[endIndex] = ''
+        setStartTimestamp([...startTimestamp])
+        setEndTimestamp([...endTimestamp])
+        console.log(timestamp, startTimestamp)
     }
 
     return (
@@ -55,8 +71,10 @@ export const TimeSelectorCard: FC<ICardProps> = ({ name }) => {
                     Start Time
                     <select onChange={(e) => setStartTime(e.target.value)}>
                         {
-                            Object.keys(startTimestamp ?? {}).map(timestampId => {
-                                return <option key={timestampId} value={timestampId}>{timestampId}</option>
+                            startTimestamp.map((timestamp, index) => {
+                                if(timestamp !== '') {
+                                    return  <option key={`${name}-${timestamp}`} value={`${timestamp}-${index}`}>{timestamp}</option>
+                                }
                             })
                         }
                     </select>
@@ -64,11 +82,11 @@ export const TimeSelectorCard: FC<ICardProps> = ({ name }) => {
                 <div>
                     End Time
                     <select onChange={(e) => setEndTime(e.target.value)}>
-                    {
-                        Object.keys(endTimestamp ?? {}).map(timestampId => {
-                            return <option key={timestampId} value={timestampId}>{timestampId}</option>
-                        })
-                    }
+                        {
+                            endTimestamp.map((timestamp, index) => {
+                                return timestamp && <option key={`${name}-${timestamp}`} value={`${timestamp}-${index}`}>{timestamp}</option>
+                            })
+                        }
                     </select>
                 </div>
                 <button onClick={addTime}>Add Time</button>

@@ -8,11 +8,10 @@ export interface ITimestamp {
     endTime: string
 }
 
-export interface ICustomTimestamp {
-    [time: string]: ICustomTime
-}
+// export interface ICustomTimestamp {
+//     [time: string]: ICustomTime
+// }
 
 export interface ICustomTime {
-    time: number
-    meridiem: 'AM' | 'PM'
+    time: string
 }
