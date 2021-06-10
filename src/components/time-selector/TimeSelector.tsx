@@ -22,11 +22,11 @@ export const TimeSelector = () => {
     
         if(checkboxValue) {
             cards[index] = name
-            setCards([...cards])
         } else {
             cards[index] = ''
-            setCards([...cards])
         }
+
+        setCards([...cards])
     }
 
     return  <>
