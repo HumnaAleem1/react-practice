@@ -1,5 +1,6 @@
 import { FC, useState } from 'react'
 import { ITimestamp } from '../time-selector/TimeSelectorInterfaces'
+import { customTimestamp } from '../time-selector/Timestamp'
 import moment from 'moment'
 import './Card.css'
 
