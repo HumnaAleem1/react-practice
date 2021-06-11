@@ -13,8 +13,8 @@ export const TimeSelectorCard: FC<ICardProps> = ({ name }) => {
     const [startTime, setStartTime] = useState<string>('')
     const [endTime, setEndTime] = useState<string>('')
     const [timestamp, setTimestamp] = useState<ITimestamp[]>([])
-    const [startTimestamp, setStartTimestamp] = useState<string[]>(customTimestamp)
-    const [endTimestamp, setEndTimestamp] = useState<string[]>(customTimestamp)
+    const [startTimestamp, setStartTimestamp] = useState<string[]>([...customTimestamp])
+    const [endTimestamp, setEndTimestamp] = useState<string[]>([...customTimestamp])
 
 
     const getTimestamps = () => {
@@ -32,7 +32,9 @@ export const TimeSelectorCard: FC<ICardProps> = ({ name }) => {
     const deleteTimeSlot = (index: number) => {
         const startTime = timestamp[index].startTime
         const endTime = timestamp[index].endTime
+        const endTimeIndex = timestamp[index].endTimeIndex
         startTimestamp[index] = startTime
+        endTimestamp[endTimeIndex] = endTime
         setStartTimestamp([...startTimestamp])
         timestamp.splice(index, 1)
         setTimestamp([...timestamp])
@@ -40,7 +42,7 @@ export const TimeSelectorCard: FC<ICardProps> = ({ name }) => {
     const addTime = () => {
         const [startTimee, startTimeIndex] = startTime.split('-')
         const [endTimee, endTimeIndex] = endTime.split('-')
-        timestamp[parseInt(startTimeIndex)] = {startTime: startTimee, endTime: endTimee}
+        timestamp[parseInt(startTimeIndex)] = {startTime: startTimee, endTime: endTimee, endTimeIndex: parseInt(endTimeIndex)}
         setTimestamp([...timestamp])
         //remove timestamps which has been used/booked
         startTimestamp[parseInt(startTimeIndex)] = ''
@@ -57,7 +59,7 @@ export const TimeSelectorCard: FC<ICardProps> = ({ name }) => {
                     Start Time
                     <select onChange={(e) => setStartTime(e.target.value)}>
                         {
-                            startTimestamp.map((timestamp, index) => {
+                            startTimestamp?.map((timestamp, index) => {
                                 if(timestamp !== '') {
                                     return  <option key={`${name}-${timestamp}`} value={`${timestamp}-${index}`}>{timestamp}</option>
                                 }
