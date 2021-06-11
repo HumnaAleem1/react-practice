@@ -1,5 +1,5 @@
 import { FC, useState } from 'react'
-import { ITimestamp, ICustomTime } from '../time-selector/TimeSelectorInterfaces'
+import { ITimestamp } from '../time-selector/TimeSelectorInterfaces'
 import { customTimestamp } from '../time-selector/Timestamp'
 import moment from 'moment'
 import './Card.css'
@@ -20,9 +20,9 @@ export const TimeSelectorCard: FC<ICardProps> = ({ name }) => {
     const getTimestamps = () => {
         return (
             timestamp?.map((time, index) => {
-                const { startTime, endTime } = time
-                return <div key={`${index}-${name}`}>
-                    <span>{moment(startTime, "h:mm").format('LT')}</span> - <span>{moment(endTime, "h:mm").format('LT')}</span>
+                const { startTime, endTime } = time || {}
+                return time && <div key={`${index}-${name}`}>
+                    <span>{startTime}</span> - <span>{endTime}</span> 
                     <span onClick={() => deleteTimeSlot(index)}>Delete</span>
                 </div>
             })
@@ -34,33 +34,19 @@ export const TimeSelectorCard: FC<ICardProps> = ({ name }) => {
         const endTime = timestamp[index].endTime
         startTimestamp[index] = startTime
         setStartTimestamp([...startTimestamp])
-        //@ts-ignore
-        // setStartTimestamp({...startTimestamp, [startTime]: {
-        //         time: parseInt(startTime.split(' ')[0].substring(0,2)),
-        //         meridiem: startTime.split(' ')[1],
-        //     }
-        // })
-        //@ts-ignore
-        // setEndTimestamp({...endTimestamp, [endTime]: {
-        //     time: parseInt(endTime.split(' ')[0].substring(0,2)),
-        //     meridiem: endTime.split(' ')[1],
-        //     }
-        // })
         timestamp.splice(index, 1)
         setTimestamp([...timestamp])
     }
-
     const addTime = () => {
-        const startTimeArr = startTime.split('-')[0]
-        const endTimeArr = endTime.split('-')[0]
-        const startIndex = parseInt(startTime.split('-')[1])
-        const endIndex = parseInt(endTime.split('-')[1])
-        setTimestamp([...timestamp, timestamp[startIndex] = {startTime: startTimeArr, endTime: endTimeArr}])
-        startTimestamp[startIndex] = ''
-        endTimestamp[endIndex] = ''
+        const [startTimee, startTimeIndex] = startTime.split('-')
+        const [endTimee, endTimeIndex] = endTime.split('-')
+        timestamp[parseInt(startTimeIndex)] = {startTime: startTimee, endTime: endTimee}
+        setTimestamp([...timestamp])
+        //remove timestamps which has been used/booked
+        startTimestamp[parseInt(startTimeIndex)] = ''
+        endTimestamp[parseInt(endTimeIndex)] = ''
         setStartTimestamp([...startTimestamp])
         setEndTimestamp([...endTimestamp])
-        console.log(timestamp, startTimestamp)
     }
 
     return (
