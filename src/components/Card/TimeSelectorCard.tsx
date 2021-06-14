@@ -62,8 +62,8 @@ export const TimeSelectorCard: FC<ICardProps> = ({ name }) => {
         timestamp[parseInt(startTimeIndex)] = {startTime: sTime, endTime: eTime, endTimestampIndex: parseInt(endTimeIndex)}
     }
 
-    const setStartTimee = (value: string) => {
-        const [sTime, startTimeIndex] = value.split('-')
+    const setStartTimeAndDropdownValues = (value: string) => {
+        const [sTime] = value.split('-')
         setStartTime(value)
 
         const startTimeIn24Format = convertTimeFormat(sTime)
@@ -108,7 +108,7 @@ export const TimeSelectorCard: FC<ICardProps> = ({ name }) => {
                <div>{name}</div>
                <div>
                     Start Time
-                    <select onChange={(e:ChangeEvent<HTMLSelectElement>) => setStartTimee(e.target.value)}>
+                    <select onChange={(e:ChangeEvent<HTMLSelectElement>) => setStartTimeAndDropdownValues(e.target.value)}>
                         <option value={''}>select start time</option>
                         {
                             startTimestamp?.map((timestamp:string, index:number) => {
