@@ -51,6 +51,9 @@ export const TimeSelectorCard: FC<ICardProps> = ({ name }) => {
             startTimestamp[i] = ''
             setStartTimestamp([...startTimestamp])
         }
+        for(let i=0; i<endTimestamp.length; i++) {
+            endTimestamp[i] = moment(i.toString(), 'hh A').format('LT')
+        }
         timestamp[parseInt(startTimeIndex)] = {startTime: sTime, endTime: eTime}
     }
 
@@ -67,9 +70,6 @@ export const TimeSelectorCard: FC<ICardProps> = ({ name }) => {
                 setEndTimestamp([...endTimestamp])
             }
         } else {
-            for(let i=0; i<endTimestamp.length; i++) {
-                endTimestamp[i] = moment(i.toString(), 'hh A').format('LT')
-            }
             for (let time of timestamp) {
                 const {startTime, endTime} = time || {}
                 const startTime24Format = convertTimeFormat(startTime)
@@ -96,8 +96,6 @@ export const TimeSelectorCard: FC<ICardProps> = ({ name }) => {
     }
 
     const convertTimeFormat = (time: string) => moment(time, 'hh:mm A').format('HH:mm')
-
-    const isValid = (sTime: string, eTime: string) => eTime > sTime
 
     return (
         <div className="card-container">
