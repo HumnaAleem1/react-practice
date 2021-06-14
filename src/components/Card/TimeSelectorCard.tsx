@@ -29,14 +29,19 @@ export const TimeSelectorCard: FC<ICardProps> = ({ name }) => {
     }
 
     const deleteTimeSlot = (index: number) => {
-        // const startTime = timestamp[index].startTime
-        // const endTime = timestamp[index].endTime
-        // const endTimeIndex = timestamp[index]
-        // startTimestamp[index] = startTime
-        // endTimestamp[endTimeIndex] = endTime
-        // setStartTimestamp([...startTimestamp])
-        // timestamp.splice(index, 1)
-        // setTimestamp([...timestamp])
+        const endTimeIndex = timestamp[index].endTimestampIndex
+
+        for(let i=index; i< endTimeIndex; i++) {
+            startTimestamp[i] = moment(i.toString(), 'hh A').format('LT')
+        }
+        for(let i=0; i< endTimestamp.length; i++) {
+            endTimestamp[i] = moment(i.toString(), 'hh A').format('LT')
+        }
+
+        setStartTimestamp([...startTimestamp])
+        setEndTimestamp([...endTimestamp])
+        timestamp.splice(index, 1)
+        setTimestamp([...timestamp])
     }
 
     const addTime = () => {
@@ -54,7 +59,7 @@ export const TimeSelectorCard: FC<ICardProps> = ({ name }) => {
         for(let i=0; i<endTimestamp.length; i++) {
             endTimestamp[i] = moment(i.toString(), 'hh A').format('LT')
         }
-        timestamp[parseInt(startTimeIndex)] = {startTime: sTime, endTime: eTime}
+        timestamp[parseInt(startTimeIndex)] = {startTime: sTime, endTime: eTime, endTimestampIndex: parseInt(endTimeIndex)}
     }
 
     const setStartTimee = (value: string) => {
