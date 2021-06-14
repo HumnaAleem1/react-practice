@@ -1,7 +1,7 @@
 import { useState } from 'react'
 import { checkboxArray } from './Checkboxes'
 import { ICheckbox } from './TimeSelectorInterfaces'
-import { TimeSelectorCard } from '../card/TimeSelectorCard'
+import { TimeSelectorCard } from '../Card/TimeSelectorCard'
 
 export const TimeSelector = () => {
 

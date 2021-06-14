@@ -29,15 +29,16 @@ export const TimeSelectorCard: FC<ICardProps> = ({ name }) => {
     }
 
     const deleteTimeSlot = (index: number) => {
-        const startTime = timestamp[index].startTime
-        const endTime = timestamp[index].endTime
-        const endTimeIndex = timestamp[index].endTimeIndex
-        startTimestamp[index] = startTime
-        endTimestamp[endTimeIndex] = endTime
-        setStartTimestamp([...startTimestamp])
-        timestamp.splice(index, 1)
-        setTimestamp([...timestamp])
+        // const startTime = timestamp[index].startTime
+        // const endTime = timestamp[index].endTime
+        // const endTimeIndex = timestamp[index]
+        // startTimestamp[index] = startTime
+        // endTimestamp[endTimeIndex] = endTime
+        // setStartTimestamp([...startTimestamp])
+        // timestamp.splice(index, 1)
+        // setTimestamp([...timestamp])
     }
+
     const addTime = () => {
         const [sTime, startTimeIndex] = startTime.split('-')
         const [eTime, endTimeIndex] = endTime.split('-')
@@ -45,17 +46,52 @@ export const TimeSelectorCard: FC<ICardProps> = ({ name }) => {
         const sTime24Format = convertTimeFormat(sTime)
         const eTime24Format = convertTimeFormat(eTime)
 
-        const valid = isValid(sTime24Format, eTime24Format)
-        const overlapped = timestamp.length > 1 ? isOverlapped(sTime24Format, eTime24Format): false
-
-        if(!overlapped && valid) {
-            timestamp[parseInt(startTimeIndex)] = {startTime: sTime, endTime: eTime, endTimeIndex: parseInt(endTimeIndex)}
-            setTimestamp([...timestamp])
-            //remove timestamps which has been used
-            startTimestamp[parseInt(startTimeIndex)] = ''
-            endTimestamp[parseInt(endTimeIndex)] = ''
+        //remove start timestamps which has been allocate
+        for (let i = parseInt(sTime24Format); i < parseInt(eTime24Format); i++) {
+            startTimestamp[i] = ''
             setStartTimestamp([...startTimestamp])
-            setEndTimestamp([...endTimestamp])
+        }
+        timestamp[parseInt(startTimeIndex)] = {startTime: sTime, endTime: eTime}
+    }
+
+    const setStartTimee = (value: string) => {
+        const [sTime, startTimeIndex] = value.split('-')
+        setStartTime(value)
+
+        const startTimeIn24Format = convertTimeFormat(sTime)
+        const startTimeIn24FormatNumber = parseInt(startTimeIn24Format)
+
+        if(timestamp.length < 1) {
+            for (let i = 0; i < startTimeIn24FormatNumber; i++) {
+                endTimestamp[i] = ''
+                setEndTimestamp([...endTimestamp])
+            }
+        } else {
+            for(let i=0; i<endTimestamp.length; i++) {
+                endTimestamp[i] = moment(i.toString(), 'hh A').format('LT')
+            }
+            for (let time of timestamp) {
+                const {startTime, endTime} = time || {}
+                const startTime24Format = convertTimeFormat(startTime)
+                const endTime24Format = convertTimeFormat(endTime)
+                if(time) {
+                    if(startTimeIn24FormatNumber < parseInt(startTime24Format)) {
+                        for (let i = 0; i < endTimestamp.length; i++) {
+                            if(i > startTimeIn24FormatNumber && i <= parseInt(startTime24Format)) {
+                                continue
+                            } else {
+                                endTimestamp[i] = ''
+                                setEndTimestamp([...endTimestamp])
+                            }
+                        }
+                    } else if(startTimeIn24FormatNumber >= parseInt(endTime24Format)) {
+                        for (let i = parseInt(startTime24Format); i <= startTimeIn24FormatNumber; i++) {
+                            endTimestamp[i] = ''
+                            setEndTimestamp([...endTimestamp])
+                        }
+                    }
+                }
+            }
         }
     }
 
@@ -63,24 +99,13 @@ export const TimeSelectorCard: FC<ICardProps> = ({ name }) => {
 
     const isValid = (sTime: string, eTime: string) => eTime > sTime
 
-    const isOverlapped = (sTime: string, eTime: string) => {
-        for (let time of timestamp) {
-            const {startTime, endTime} = time || {}
-            const startTime24Format = convertTimeFormat(startTime)
-            const endTime24Format = convertTimeFormat(endTime)
-            if(time) {
-                return time && (sTime < endTime24Format && startTime24Format < eTime)
-            }
-        }
-    }
-
     return (
         <div className="card-container">
             <div className="card">
                <div>{name}</div>
                <div>
                     Start Time
-                    <select onChange={(e:ChangeEvent<HTMLSelectElement>) => setStartTime(e.target.value)}>
+                    <select onChange={(e:ChangeEvent<HTMLSelectElement>) => setStartTimee(e.target.value)}>
                         <option value={''}>select start time</option>
                         {
                             startTimestamp?.map((timestamp:string, index:number) => {
