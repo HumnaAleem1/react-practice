@@ -52,9 +52,20 @@ export const TimeSelectorCard: FC<ICardProps> = ({ name }) => {
         const eTime24Format = convertTimeFormat(eTime)
 
         //remove start timestamps which has been allocate
-        for (let i = parseInt(sTime24Format); i < parseInt(eTime24Format); i++) {
-            startTimestamp[i] = ''
-            setStartTimestamp([...startTimestamp])
+        if(parseInt(sTime24Format) > parseInt(eTime24Format)) {
+            for (let i = 0; i < parseInt(eTime24Format); i++) {
+                startTimestamp[i] = ''
+                setStartTimestamp([...startTimestamp])
+            }
+            for (let i = parseInt(sTime24Format); i < startTimestamp.length; i++) {
+                startTimestamp[i] = ''
+                setStartTimestamp([...startTimestamp])
+            }
+        } else {
+            for (let i = parseInt(sTime24Format); i < parseInt(eTime24Format); i++) {
+                startTimestamp[i] = ''
+                setStartTimestamp([...startTimestamp])
+            }
         }
         for(let i=0; i<endTimestamp.length; i++) {
             endTimestamp[i] = moment(i.toString(), 'hh A').format('LT')
@@ -69,12 +80,7 @@ export const TimeSelectorCard: FC<ICardProps> = ({ name }) => {
         const startTimeIn24Format = convertTimeFormat(sTime)
         const startTimeIn24FormatNumber = parseInt(startTimeIn24Format)
 
-        if(timestamp.length < 1) {
-            for (let i = 0; i < startTimeIn24FormatNumber; i++) {
-                endTimestamp[i] = ''
-                setEndTimestamp([...endTimestamp])
-            }
-        } else {
+        if(timestamp.length >= 1) {
             for (let time of timestamp) {
                 const {startTime, endTime} = time || {}
                 const startTime24Format = convertTimeFormat(startTime)
@@ -83,14 +89,14 @@ export const TimeSelectorCard: FC<ICardProps> = ({ name }) => {
                     if(startTimeIn24FormatNumber < parseInt(startTime24Format)) {
                         for (let i = 0; i < endTimestamp.length; i++) {
                             if(i > startTimeIn24FormatNumber && i <= parseInt(startTime24Format)) {
-                                continue
+                                continue;
                             } else {
                                 endTimestamp[i] = ''
                                 setEndTimestamp([...endTimestamp])
                             }
                         }
                     } else if(startTimeIn24FormatNumber >= parseInt(endTime24Format)) {
-                        for (let i = parseInt(startTime24Format); i <= startTimeIn24FormatNumber; i++) {
+                        for (let i = (parseInt(startTime24Format) + 1); i <= startTimeIn24FormatNumber; i++) {
                             endTimestamp[i] = ''
                             setEndTimestamp([...endTimestamp])
                         }
