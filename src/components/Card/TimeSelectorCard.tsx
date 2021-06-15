@@ -55,24 +55,25 @@ export const TimeSelectorCard: FC<ICardProps> = ({ name }) => {
         const startTimeIndex = parseInt(startTimeIn24Format)
         const endTimeIndex = parseInt(endTimeIn24Format)
 
-        //remove start timestamps which has been allocate
+        //remove start timestamps which has been allocated
         if(startTimeIndex > endTimeIndex) {
-            for (let i = 0; i < endTimeIndex; i++) {
+            for (let i = 0; i < endTimeIndex; i++)
                 startTimestamp[i] = ''
-            }
-            for (let i = startTimeIndex; i < startTimestamp.length; i++) {
+
+            for (let i = startTimeIndex; i < startTimestamp.length; i++)
                 startTimestamp[i] = ''
-            }
+
             setStartTimestamp([...startTimestamp])
         } else {
-            for (let i = startTimeIndex; i < endTimeIndex; i++) {
+            for (let i = startTimeIndex; i < endTimeIndex; i++)
                 startTimestamp[i] = ''
-            }
+
             setStartTimestamp([...startTimestamp])
         }
-        for(let i=0; i<endTimestamp.length; i++) {
+        //restore endTimestamp array
+        for(let i=0; i<endTimestamp.length; i++)
             endTimestamp[i] = convertIntegerToTime(i)
-        }
+
         timestamp[startTimeIndex] = {startTime, endTime, endTimeIndex}
     }
 
@@ -94,17 +95,16 @@ export const TimeSelectorCard: FC<ICardProps> = ({ name }) => {
                 if(time) {
                     if(startTimeIndex < startTimeIndexOfTimestamp) {
                         for (let i = 0; i < endTimestamp.length; i++) {
-                            if(i > startTimeIndex && i <= startTimeIndexOfTimestamp) {
-                                continue;
-                            } else {
+                            if(i > startTimeIndex && i <= startTimeIndexOfTimestamp)
+                                continue
+                            else
                                 endTimestamp[i] = ''
-                            }
                         }
                         setEndTimestamp([...endTimestamp])
                     } else if(startTimeIndex >= endTimeIndexOfTimestamp) {
-                        for (let i = (startTimeIndexOfTimestamp + 1); i <= startTimeIndex; i++) {
+                        for (let i = (startTimeIndexOfTimestamp + 1); i <= startTimeIndex; i++)
                             endTimestamp[i] = ''
-                        }
+
                         setEndTimestamp([...endTimestamp])
                     }
                 }
