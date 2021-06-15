@@ -85,23 +85,23 @@ export const TimeSelectorCard: FC<ICardProps> = ({ name }) => {
 
         if(timestamp.length >= 1) {
             for (let time of timestamp) {
-                const {startTime, endTime} = time || {}
-                const startTimeOfTimestampIn24Format = convertTimeIn24Format(startTime)
-                const endTimeOfTimestampIn24Format = convertTimeIn24Format(endTime)
+                if (time) {
+                    const {startTime, endTime} = time
+                    const startTimeOfTimestampIn24Format = convertTimeIn24Format(startTime)
+                    const endTimeOfTimestampIn24Format = convertTimeIn24Format(endTime)
 
-                const startTimeIndexOfTimestamp = parseInt(startTimeOfTimestampIn24Format)
-                const endTimeIndexOfTimestamp = parseInt(endTimeOfTimestampIn24Format)
+                    const startTimeIndexOfTimestamp = parseInt(startTimeOfTimestampIn24Format)
+                    const endTimeIndexOfTimestamp = parseInt(endTimeOfTimestampIn24Format)
 
-                if(time) {
-                    if(startTimeIndex < startTimeIndexOfTimestamp) {
+                    if (startTimeIndex < startTimeIndexOfTimestamp) {
                         for (let i = 0; i < endTimestamp.length; i++) {
-                            if(i > startTimeIndex && i <= startTimeIndexOfTimestamp)
+                            if (i > startTimeIndex && i <= startTimeIndexOfTimestamp)
                                 continue
                             else
                                 endTimestamp[i] = ''
                         }
                         setEndTimestamp([...endTimestamp])
-                    } else if(startTimeIndex >= endTimeIndexOfTimestamp) {
+                    } else if (startTimeIndex >= endTimeIndexOfTimestamp) {
                         for (let i = (startTimeIndexOfTimestamp + 1); i <= startTimeIndex; i++)
                             endTimestamp[i] = ''
 
