@@ -6,5 +6,5 @@ export interface ICheckbox {
 export interface ITimestamp {
     startTime: string
     endTime: string
-    endTimestampIndex: number
+    endTimeIndex: number
 }
