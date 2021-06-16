@@ -12,13 +12,13 @@ export const TimeSelectorCard: FC<ICardProps> = ({ name }) => {
 
     const [startTime, setStartTime] = useState<string>('')
     const [endTime, setEndTime] = useState<string>('')
-    const [timestamp, setTimestamp] = useState<ITimestamp[]>([])
+    const [addedTimestamp, setAddedTimestamp] = useState<ITimestamp[]>([])
     const [startTimestamp, setStartTimestamp] = useState<string[]>([...customTimestamp])
     const [endTimestamp, setEndTimestamp] = useState<string[]>([...customTimestamp])
 
     const getTimestamps = () => {
         return (
-            timestamp?.map((time, index) => {
+            addedTimestamp?.map((time, index) => {
                 const { startTime, endTime } = time || {}
                 return time && <div key={`${index}-${name}`}>
                     <span>{startTime}</span> - <span>{endTime}</span> 
@@ -29,7 +29,7 @@ export const TimeSelectorCard: FC<ICardProps> = ({ name }) => {
     }
 
     const deleteTimeSlot = (index: number) => {
-        const endTimeIndex = timestamp[index].endTimeIndex
+        const endTimeIndex = addedTimestamp[index].endTimeIndex
 
         //restore delete timestamps
         for(let i=index; i< endTimeIndex; i++) {
@@ -43,8 +43,8 @@ export const TimeSelectorCard: FC<ICardProps> = ({ name }) => {
         setEndTimestamp([...endTimestamp])
 
         //delete element from timestamp
-        timestamp.splice(index, 1)
-        setTimestamp([...timestamp])
+        addedTimestamp.splice(index, 1)
+        setAddedTimestamp([...addedTimestamp])
     }
 
     const addTime = () => {
@@ -74,17 +74,20 @@ export const TimeSelectorCard: FC<ICardProps> = ({ name }) => {
         for(let i=0; i<endTimestamp.length; i++)
             endTimestamp[i] = convertIntegerToTime(i)
 
-        timestamp[startTimeIndex] = {startTime, endTime, endTimeIndex}
+        addedTimestamp[startTimeIndex] = {startTime, endTime, endTimeIndex}
     }
 
     const setStartTimeAndDropdownValues = (startTime: string) => {
         setStartTime(startTime)
+        //restore endTimestamp array
+        for(let i=0; i<endTimestamp.length; i++)
+            endTimestamp[i] = convertIntegerToTime(i)
 
         const startTimeIn24Format = convertTimeIn24Format(startTime)
         const startTimeIndex = parseInt(startTimeIn24Format)
 
-        if(timestamp.length >= 1) {
-            for (let time of timestamp) {
+        if(addedTimestamp.length >= 1) {
+            for (let time of addedTimestamp) {
                 if (time) {
                     const {startTime, endTime} = time
                     const startTimeOfTimestampIn24Format = convertTimeIn24Format(startTime)
@@ -143,7 +146,7 @@ export const TimeSelectorCard: FC<ICardProps> = ({ name }) => {
                     </select>
                 </div>
                 <button onClick={addTime}>Add Time</button>
-                { timestamp && getTimestamps() }
+                { addedTimestamp && getTimestamps() }
             </div>
         </div>
     )
