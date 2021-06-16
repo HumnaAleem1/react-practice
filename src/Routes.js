@@ -1,5 +1,5 @@
 import { Switch, Route } from 'react-router-dom';
-import { Home } from './components/home/Home'
+import { Home } from './components/Home/Home'
 import { TimeSelector } from './components/time-selector/TimeSelector'
 
 const Routes = () => {
