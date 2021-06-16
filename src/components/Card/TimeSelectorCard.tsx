@@ -70,9 +70,6 @@ export const TimeSelectorCard: FC<ICardProps> = ({ name }) => {
 
             setStartTimestamp([...startTimestamp])
         }
-        //restore endTimestamp array
-        for(let i=0; i<endTimestamp.length; i++)
-            endTimestamp[i] = convertIntegerToTime(i)
 
         addedTimestamp[startTimeIndex] = {startTime, endTime, endTimeIndex}
     }
