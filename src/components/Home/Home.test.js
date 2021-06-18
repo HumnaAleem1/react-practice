@@ -1,7 +1,6 @@
 import React from 'react'
 import { Home } from './Home'
 import { shallow, render, mount } from 'enzyme';
-const home = jest.mock('./Home');
 
 describe('Home', () => {
 
@@ -32,7 +31,6 @@ describe('Home', () => {
         const wrapper = shallow(<Home />)
         const handleClick = jest.spyOn(React, "useState")
         handleClick.mockImplementation(authorData => [authorData, setAuthorData])
-        wrapper.find('button').simulate('click')
         expect(setAuthorData).toBeTruthy()
     })
 
