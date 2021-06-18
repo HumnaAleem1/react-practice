@@ -1,5 +1,5 @@
 import { useState, FC } from 'react'
-import { Card } from '../card/Card'
+import { Card } from '../Card/Card'
 import { ICard } from "../TableInterfaces"
 import { IRedditData } from "../../RedditInterfaces"
 import './Table.css'
